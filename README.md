@@ -25,6 +25,6 @@ Bonjour et bienvenu pour la consultation de ma réponse à ce test technique.
 - J'ai beaucoup commenté.
 - J'ai laissé des todo qui sont les points que j'aurais aimé aborder avec l'équipe ou avec l'utilisateur.
 
-# Bonne revue
+# Bonne revue !
 
 **Adrien GATINOIS**
