@@ -1,73 +1,30 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Test Technique
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Bonjour et bienvenu pour la consultation de ma réponse à ce test technique.
 
-## Description
+## Approche
+- On a une liste d'operations dans laquelle on peut avoir des operations en trop ou manquantes.
+- On a tous les mois un point de controle qui nous indique le solde du compte à une date.
+- On a besoin d'une api pour verifier si on a les bonnes operations en BDD.
+### Controle
+- Faire la somme des “amount” entre chaque date de point de contrôle. 
+- Comparer cette somme mensuelle à la différence des soldes des points de contrôle avant et après.
+### Parametrage
+- Il semble primordial de pourvoir indiquer une plage de date (ou au moins une date minimum)pour ne pas remonter toute la base de donnée à chaque fois
+- La date de départ semblant la propriété principale, je propose une API **GET /validation/yyyy_mm_dd/yyyy_mm_dd** les dates étant facultatives
+- Il semble primordiale de pourvoir récupérer les movements et les balances propre au client.
+    le champ client_id ne figurant pas sur l'ennoncé, je considère que la base ne contient que les données d'un seul client.
+    Sinon il faudrait un champ client_id sur balances et sur movements et ajouter ce parametre à l'api ou inclure dans le code le controle par client (a voir en fonction des besoins)
+## Realisation
+- Je connaissais trés peu le framework Nest et puisque vous le mentionnez j'ai profité de ce test pour m'y former un peu et le tester. (Désolé si j'ai loupé certaines bonnes pratiques inférantes au framework)
+- J'ai donc mis en place une architecture utilisant mongo et nest dans laquelle j'ai crée les collections movements et balances.
+- J'ai crée les api create et findAll sur ces deux collections dont j'avais besoin pour tester la feature.
+- J'ai ensuite crée l'api validation demandée.
+- Le gros du code se trouve dans les fichiers  **validation/validation.service.ts** et **validation/validation.controller.ts** .
+- J'ai beaucoup commenté.
+- J'ai laissé des todo qui sont les points que j'aurais aimé aborder avec l'équipe ou avec l'utilisateur.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Bonne revue
 
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Adrien GATINOIS
