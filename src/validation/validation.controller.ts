@@ -28,8 +28,9 @@ export class ValidationController {
     @Res() response: Response,
   ) {
     const reasons = await this.validationService.validation(fromDate, toDate);
-    // Si le tableau est vide, le controle est validé
-    // Sinon on retourne le tableau
+    // Si le controle s'est bien passé, qu'il trouve des erreurs ou non
+    // on renvoie un status 200 avec un objet qui contient
+    // un message, les parametres et les reasons (si le controle à trouvé une erreur)
     const body: {
       message: string;
       reasons?: Reason[];
@@ -39,13 +40,14 @@ export class ValidationController {
       parameters: { fromDate, toDate },
     };
     if (reasons.length) {
+      // On extrait la plage de date qui englobe toutes les erreurs pour construire le message
       const { firstStartDate, lastEndDate } = reasons.reduce<{
         [key: string]: Date;
       }>((total, { startDate, endDate }) => {
         if (!total!.firstStartDate || total.firstStartDate < startDate) {
           total.firstStartDate = startDate;
         }
-        if (!total!.lastEndDate || total.lastEndDate < endDate) {
+        if (!total!.lastEndDate || total.lastEndDate > endDate) {
           total.lastEndDate = endDate;
         }
         return total;

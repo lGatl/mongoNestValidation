@@ -3,7 +3,7 @@ import { MovementService } from '../movement/movement.service';
 import { BalanceService } from '../balance/balance.service';
 
 export interface Reason {
-  // date du balance précédent, date du balance qui contient le solde à atteindre
+  // Date du balance précédent, date du balance qui contient le solde à atteindre
   // On sait qu'un probleme s'est glissé entre ces 2 dates
   startDate: Date;
   endDate: Date;
@@ -34,6 +34,7 @@ export class ValidationService {
     //  - si il ne faudrait pas ajouter l'id d'un client
     //    => auquel cas utiliser les query parameters en POST
     //  - avoir plus d'infos sur le cas d'usage
+    //  - si le movement.id permet ou non de dédoublonner les movements auquel cas, à utiliser pour plus de précision
 
     // On crée un selecteur en fonction des parametres recus
     // definissant le scope temporel de la validation
